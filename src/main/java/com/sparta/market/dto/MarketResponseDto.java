@@ -1,12 +1,14 @@
 package com.sparta.market.dto;
 
 import com.sparta.market.entity.Market;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor      // 추가
 public class MarketResponseDto {
 
     private Long id;

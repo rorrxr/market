@@ -2,28 +2,25 @@ $(document).ready(function() {
     //게시글 목록을 불러오는 함수
     function loadPosts() {
         $.ajax({
-            url: '/post',  // 게시글 목록을 조회하는 API 엔드포인트
+            url: '/posts',  // 게시글 목록을 조회하는 API 엔드포인트
             method: 'GET',
             success: function(data) {
-                $('#post-list-container').empty();
-                data.forEach(post => {
-                    const postElement = `
-                        <li>
-                            <div>
-                                <p>${post.id}</p>
-                                <h3>${post.title}</h3>
-                                <p>${post.content}</p>
-                                <span>가격: ${post.price} 원</span>
-                                <p>${post.username}</p>
-                            </div>
-                            <div>
-                                <button class="edit-btn" data-id="${post.id}">수정</button>
-                                <button class="delete-btn" data-id="${post.id}">삭제</button>
-                            </div>
-                        </li>
-                    `;
-                    $('#post-list-container').append(postElement);
-                });
+                const postsHtml = data.map(post => `
+                    <li>
+                        <div>
+                            <p>${post.id}</p>
+                            <h3>${post.title}</h3>
+                            <p>${post.content}</p>
+                            <span>가격: ${post.price} 원</span>
+                            <p>${post.username}</p>
+                        </div>
+                        <div>
+                            <button class="edit-btn" data-id="${post.id}">수정</button>
+                            <button class="delete-btn" data-id="${post.id}">삭제</button>
+                        </div>
+                    </li>
+                `).join('');
+                            $('#post-list-container').html(postsHtml);
             },
             error: function(error) {
                 alert('게시글을 불러오는 데 실패했습니다.');

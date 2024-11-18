@@ -23,6 +23,7 @@ public class MarketController {
     }
 
     @GetMapping("/posts")
+    @ResponseBody
     public List<MarketResponseDto> getAllPosts() {
         return marketService.getAllPosts();
     }
@@ -32,22 +33,26 @@ public class MarketController {
         return marketService.getPostById(id);
     }
 
-
     // 판매 게시글 작성
     @PostMapping("/post")
     public MarketResponseDto createPost(@RequestBody MarketRequestDto requestDto) {
+        System.out.println(requestDto);
         return marketService.save(requestDto);
     }
 
     // 게시글 수정
     @PutMapping("/post/{id}")
     public MarketResponseDto updatePost(@PathVariable Long id, @RequestBody MarketRequestDto requestDto) {
+        System.out.println(requestDto);
+
         return marketService.update(id, requestDto);
     }
 
     // 게시글 삭제
     @DeleteMapping("/post/{id}")
-    public String deletePost(@PathVariable Long id) {
+    public String deletePost(@PathVariable Long id, @RequestBody MarketRequestDto requestDto) {
+        System.out.println(id);
+
         return marketService.delete(id);
     }
 }
