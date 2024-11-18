@@ -55,19 +55,21 @@ $(document).ready(function() {
         const postId = $(this).data('id');
         if (confirm('정말 삭제하시겠습니까?')) {
             $.ajax({
-                url: `/post/${postId}`,
-                method: 'DELETE',
-                success: function() {
+                url: `/post/${postId}`,  // post/{id}로 동적으로 설정
+                method: 'DELETE',  // DELETE 요청
+                success: function(response) {
+                    // 삭제가 성공한 경우
                     alert('게시글이 삭제되었습니다.');
-                    loadPosts();
+                    loadPosts();  // 게시글 목록 다시 불러오기
                 },
-                error: function() {
+                error: function(xhr, status, error) {
+                    // 삭제가 실패한 경우
+                    console.error('Error occurred during delete request: ', error);
                     alert('게시글 삭제에 실패했습니다.');
                 }
             });
         }
     });
-
     // 게시글 작성/수정 처리
     $('#post-form').submit(function(event) {
         event.preventDefault();
@@ -79,7 +81,7 @@ $(document).ready(function() {
             username: $('#username').val()  // 사용자 이름 추가
         };
 
-        const postId = $('#submit-btn').data('id');  // 수정인 경우 ID
+        const postId = $('#submit-btn').data('id');  // 수정할 경우, 버튼에 저장된 ID 확인
 
         if (postId) {
             // 수정 요청
@@ -91,9 +93,9 @@ $(document).ready(function() {
                 success: function() {
                     alert('게시글이 수정되었습니다.');
                     loadPosts();
-                    $('#post-modal').hide();
+                    $('#post-modal').hide();  // 모달 숨기기
                 },
-                error: function(error) {
+                error: function() {
                     alert('게시글 수정에 실패했습니다.');
                 }
             });
@@ -107,9 +109,9 @@ $(document).ready(function() {
                 success: function() {
                     alert('게시글이 등록되었습니다.');
                     loadPosts();
-                    $('#post-modal').hide();
+                    $('#post-modal').hide();  // 모달 숨기기
                 },
-                error: function(error) {
+                error: function() {
                     alert('게시글 등록에 실패했습니다.');
                 }
             });

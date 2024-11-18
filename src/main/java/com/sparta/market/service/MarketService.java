@@ -38,6 +38,7 @@ public class MarketService {
      * 게시글 수정
      */
 
+    @Transactional
     public MarketResponseDto update(Long id, MarketRequestDto requestDto) {
         // 게시글을 ID로 찾아서 수정
         Market market = marketRepository.findById(id)
@@ -47,11 +48,12 @@ public class MarketService {
         market.update(requestDto);
 
         // 수정된 게시글 저장
-        marketRepository.save(market);
+//        marketRepository.save(market);
 
         return new MarketResponseDto(market);
     }
 
+    @Transactional
     // 게시글 삭제
     public String delete(Long id) {
         // 게시글을 ID로 찾아서 삭제
@@ -76,6 +78,7 @@ public class MarketService {
     public MarketResponseDto getPostById(Long id) {
         Market market = marketRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("게시글을 찾을 수 없습니다."));
+
         return new MarketResponseDto(market);
     }
 

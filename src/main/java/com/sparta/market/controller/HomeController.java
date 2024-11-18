@@ -14,8 +14,8 @@ import java.util.List;
 @Controller
 public class HomeController {
 
-//    @GetMapping("/post")
-//    public String post() {
-//        return "post";
-//    }
+    @GetMapping("/post")
+    public String post() {
+        return "post";
+    }
 }

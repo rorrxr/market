@@ -11,16 +11,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RequiredArgsConstructor
-@Controller
+@RestController
 public class MarketController {
 
     @Autowired
     private final MarketService marketService;
-
-    @GetMapping("/post")
-    public String post() {
-        return "post";
-    }
 
     @GetMapping("/posts")
     @ResponseBody
@@ -43,15 +38,15 @@ public class MarketController {
     // 게시글 수정
     @PutMapping("/post/{id}")
     public MarketResponseDto updatePost(@PathVariable Long id, @RequestBody MarketRequestDto requestDto) {
-        System.out.println(requestDto);
+        System.out.println("Updating post with ID: " + id);
 
         return marketService.update(id, requestDto);
     }
 
     // 게시글 삭제
     @DeleteMapping("/post/{id}")
-    public String deletePost(@PathVariable Long id, @RequestBody MarketRequestDto requestDto) {
-        System.out.println(id);
+    public String deletePost(@PathVariable Long id) {
+        System.out.println("Deleting post with ID: " + id);  // 로그로 확인
 
         return marketService.delete(id);
     }
